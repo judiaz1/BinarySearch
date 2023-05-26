@@ -1,3 +1,19 @@
+public class Item
+{
+    private int myCatNum, myInventory;
+    public Item(int nNum, int nInv)
+    {
+        myCatNum = nNum;
+        myInventory = nInv;
+    }
+    public int getCatNum(){
+    return myCatNum;
+  }
+    public int getInventory(){
+      return myInventory;
+  }
+}
+
 private Item[] store = 
 {
   new Item(184, 14), 
@@ -20,27 +36,65 @@ private Item[] store =
   new Item(18618, 64), 
   new Item(18871, 69), 
   new Item(19967, 45)
-};                             
+};    
 public int linearSearch(int catNumToFind)
 {
-  //complete this method
-  return -1;
+  int index =-1;
+  for(int i = 0; i <store.length;i++){
+    if(store[i].getCatNum() == catNumToFind){
+    store[i].getInventory();
+    return store[i].getInventory();
+    }
+    
+  }
+  return index;
+
 }
 public int recursiveLinearSearch(int catNumToFind, int startIndex)
 {
-  //complete this method
-  return -1;
+    if(startIndex >= store.length){
+    return -1;
+  }
+  if(store[startIndex].getCatNum() == catNumToFind){
+    return store[startIndex].getInventory();
+  }
+  return recursiveLinearSearch(catNumToFind,startIndex + 1);
+  
 }
 public int binarySearch(int catNumToFind)
-{
-  //complete this method    
+{ 
+  int low = 0;
+  int high = store.length - 1;
+  int guess = -1;
+  while(low <= high)
+  {
+     guess = (low + high)/2;
+     if(store[guess].getCatNum() == catNumToFind)
+       return store[guess].getInventory();
+     else if(store[guess].getCatNum() < catNumToFind)
+       low = guess + 1;
+     else 
+       high = guess - 1;
+  }
   return -1;
 }
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 {
-  //complete this method    
-  return -1;
+ 
+  int guess = (nHigh+nLow) /2;
+
+  if(nLow > nHigh){
+  return -1;    
+  }
+  if(store[guess].getCatNum() == catNumToFind){
+    return store[guess].getInventory();
+  }else if(store[guess].getCatNum() > catNumToFind){
+    return recursiveBinarySearch(catNumToFind,nLow,guess-1);
+  }else{
+    return recursiveBinarySearch(catNumToFind,guess+1,nHigh);
+  }
 }
+
 public void setup()
 {
   int[] tests = {0, 183, 184, 2370, 15320, 19967, 19968};
@@ -49,7 +103,6 @@ public void setup()
   System.out.println("=====================");
   for (int i = 0; i < tests.length; i++)
   {
-
     if (linearSearch(tests[i]) != -1)
       System.out.println("Catalog #"+tests[i]+" has "+linearSearch(tests[i]) + " in stock");
     else
@@ -94,9 +147,5 @@ public void draw()
 {
   //empty!
 }
-
-
-
-
 
 
